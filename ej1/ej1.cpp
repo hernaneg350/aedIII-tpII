@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <limits.h>
 using namespace std;
+// An utility function to find the vertex with minimum distance value, from
 // the set of vertices not yet included in shortest path tree
 int minDistance(vector<int> dist, vector<bool> sptSet, int V)
 {
@@ -16,6 +17,7 @@ int minDistance(vector<int> dist, vector<bool> sptSet, int V)
    return min_index;
 }
 
+// An utility function to print the constructed distance array
 int printSolution(vector<int> dist, int V, int n, int periodo)
 {
 
@@ -67,6 +69,7 @@ void dijkstra(vector<vector<int>> graph, int V, int dest,int src, int periodo)
      printSolution(dist, V, dest, periodo);
 }
 
+// main code
 int main()
 {
 
