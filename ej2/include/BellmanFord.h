@@ -1,6 +1,7 @@
 #pragma once
 
 #include <limits>
+#include <tuple>
 
 #include "Graph.h"
 
@@ -12,6 +13,7 @@ namespace TPII
     private:
         const Graph& _graph;
         const int _weightModifier;
+        bool Run(vector<int>& distance, vector<bool>& processed, int source) const;
     public:
         BellmanFord(const Graph& graph, int weightModifier);
         bool HasNegativeCycles() const;
