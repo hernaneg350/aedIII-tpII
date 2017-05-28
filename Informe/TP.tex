@@ -1,0 +1,46 @@
+\documentclass[10pt, a4paper]{article}
+% especifico márgenes manualmente
+\usepackage[paper=a4paper, left=1.5cm, right=1.5cm, bottom=1.5cm, top=3.5cm]{geometry}
+% codificación ISO-8859-1
+\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+% separación silábica en castellano
+\usepackage[spanish]{babel}
+% utils
+\usepackage{etoolbox,caption}
+% paquetes y caratula de algo2
+\usepackage{aed2-symb,aed2-itef,aed2-tad,aed2-newalgo,aed2-interfaz,caratula}
+\usepackage{graphicx}
+% hipervinculos en el indice
+\usepackage{hyperref}
+% algoritmos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\parskip=5pt % 10pt es el tamaño de fuente
+
+\begin{document}
+
+% Estos comandos deben ir antes del \maketitle
+\materia{Algoritmos y Estructuras de Datos III} % obligatorio
+\submateria{Primer Cuatrimestre de 2017} % opcional
+\titulo{Trabajo Práctico 2} % obligatorio
+%\grupo{Grupo} % opcional
+
+\integrante{Salvador, Alejo}{467/15}{alelucmdp@hotmail.com} % obligatorio 
+
+
+\maketitle
+
+% compilar 2 veces para actualizar las referencias
+\tableofcontents
+
+\pagebreak
+\input{Ejercicios/2-Recursion}
+\input{Ejercicios/3-Recursion-con-poda}
+
+\end{document}
