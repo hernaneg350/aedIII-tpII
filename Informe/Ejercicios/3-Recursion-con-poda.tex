@@ -87,3 +87,17 @@ Para el psudocodigo se utilizará la función sort que ordena el vector dado de 
 }{\bigo(N*N*log(N)) + \bigo(N*N)+\bigo(N*N)$=$\bigo(N*N*log(N))}
 
 
+\subsection{Experimentación}
+La experimentación del ejercicio 3 se llevó a cabo armando un grafo completo completo de n nodos. Las aristas se generaron desde (v1, v2), (v2, v3), ..., (v2, v3), (v3, v4), ..., (v(n-1), v(n-2)). Los costos son completamente aleatorios en cada instancia generada, para demostrar que no afectan los tiempos de ejecución, y para asignarle una densidad al grafo, se ordenó la lista de incidencia de manera aleatoria y se tomaron los max m * densidad primeros elementos de la mismas.\\
+ 
+La principal observación que se puede realizar para este algoritmo es que los tiempos de ejecución dependen enteramente de la cantidad de vértices. La dependencia en N es visible en el cálculo de complejidad, pero se puede corroborar que cualquier variación de instancias no modifica los tiempos de ejecución. Para esto variamos la densidad del grafo, tomando aristas y costos de construcción completamente aleatorios para cada una, pero con N fijo. Esto nos da una distribución normal lo que nos permite corroborar que ninguna otra característica del grafo afecta los tiempos de ejecución:\\
+
+
+\begin{figure}[!htb!]
+	\begin{center}
+		\includegraphics[width=300pt]{Imagenes/density.png}
+		\caption{{\small \textit{densidad}}}
+	\end{center}
+\end{figure}
+
+
