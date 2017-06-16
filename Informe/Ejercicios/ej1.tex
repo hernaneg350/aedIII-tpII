@@ -1,0 +1,105 @@
+\section{Ejercicio 1}
+
+\subsection{Descripción del problema}
+
+\subsubsection{Enunciado Informal}
+
+En este problema se nos presenta un conjunto de ciudades con rutas entre las mismas que pueden o no ser premium. Cada ruta toma un determinado tiempo en ser recorrida. Dado un limite K de rutas premium que pueden ser usadas debe encontrarse el minimo tiempo posible que se puede tardar en llegar de una ciudad origen a otra destino.
+
+\subsubsection{Enunciado Formal}
+Primero se procederá a dar una serie de definiciones para que de ese modo sea posible definir el problema de manera formal.\\
+El camino es definido como una secuencia de vértices dentro de un grafo tal que exista una arista entre cada vértice y el siguiente.\\
+A su vez la longitud de un camino será definida como la suma de los pesos de todas las aristas que componen dicho camino.\\
+Entonces el problema quedaría enunciado como:
+Se tiene un entero positivo K, un conjunto de vertices y aristas con un determinado peso que conectan a algunos de estos vertices entre si y 2 conjuntos disjuntos, 1 y 2, tales que cada uno de ellos incluya un subconjunto de las aristas. Debe hallarse para un par de vértices dado, el cámino de menor longitud que conecta dichos vértices y no incluye a ninguno arista del conjunto 2.
+\subsubsection{Formato de entrada y salida}
+La entrada esta conformada por:\\
+
+una línea con 2 enteros N y M,donde N la cantidad de ciudades y M la cantidad de rutas;\\
+
+una línea con 3 enteros origen, destino y K, donde los primeros 2 indican el par de vértices para el cual debe hallarse el camino mas corto y el tercero que indica la máxima cantidad de rutas premium a usar;\\
+M lineas con enteros c1 y c2 que indican cuales ciudades comunica la ruta a describir en la linea, seguido de un entero p que indica si la ruta es premium (p=1) o no (p=0) y finalmente un entero positivo d indicando el costo de viajar por la misma.
+\\
+La salida es un único entero con la longitud del minimo cámino de la ciudad origen a la ciudad destino que incluya a lo sumo K rutas premium.\\
+
+
+\subsubsection{Ejemplos con Soluciones}
+Ejemplo 1:un ejemplo en el que no se usan rutas premium\\
+Entrada:\\
+6 6\\
+0 3 0\\
+0 1 0 2\\
+0 5 1 1\\
+1 2 0 4\\
+2 3 0 6\\
+5 4 0 2\\
+4 3 0 3\\
+Salida:\\
+12\\
+Explicacion:\\
+Existen unicamente 2 caminos de la ciudad 0 a las 3, uno con una ruta premuim y el otro con ninguna. Como no se pueden usar rutas premium el unico camino posible es camino 0-1-2-3 que tiene una longitud de 12.\\
+\\
+Ejemplo 2:un ejemplo en que se usa la ruta premium\\
+Entrada:\\
+6 6\\
+0 3 1\\
+0 1 0 2\\
+0 5 1 1\\
+1 2 0 4\\
+2 3 0 6\\
+5 4 0 2\\
+4 3 0 3\\
+Salida:\\
+6\\
+Explicacion:\\
+De los 2 caminos previamente mecionados el que incluía una ruta premium no podía usarse. Ahora que K es mas grande es posible usarlo por lo que el criterio para decidir caminos ahora es ver el mas corto. Como un camino tiene una longitud de 12 y el otro de 6 la menor distancia sería 6.
+
+
+
+
+\subsection{Explicación de la solución}
+
+Para resolver este problema se reducirá el mismo a otro problema equivalente que sea resoluble directamente con el algoritmo de dijkstra (\url{https://es.wikipedia.org/wiki/Algoritmo_de_Dijkstra}). \\
+Para hacer eso primero añadiremos estados a las ciudades. Cada una tendrá K+1 estados cada uno representado con un múmero indicando cuantas rutas premium se tomaron para llegar a dicha ciudad. Es decir que si viajo desde la ciudad A en el estado E a la B por una ruta premium esta última estaría en el estado E+1. En cambio si viajara por una ruta normal estaría en el estado E. En caso de que E+1 sea mas grande que K ese viaje no puede concretarse. Lo interesante de esto es que es un grafo en el que puede realizarse un recorrido mientras que se lleva la cuenta de la cantidad de rutas premium que fueron usadas.\\
+Aprovechando esa estructura es posible guardar en cada estado la menor distancia requerida para llegar a dicho estado. Eso lleva claramente a considerar la posibilidad de utilizar dijkstra donde los nodos son cada estado aprovechando que las aristas son facilmente calculables de la manera previamente descripta. Al correr dijkstra en dicho grafo se obtiene las distancia minima desde el vertice origen en el estado 0 a todos  los otros vertices visitables en sus estados alcanzables. Por lo tanto solo resta ver cual es la menor distancia al vertice destino existente entre todos sus posibles estados ya que no interesa con cuantas rutas premium se llega al destino mientras que se encuentre debajo del límite.\\
+
+Para el psudocodigo se utilizará una implementación de dijkstra sin hacer uso de colas de prioridad (\url{https://es.wikipedia.org/wiki/Algoritmo_de_Dijkstra}). Por lo tanto se describirá el algoritmo a partir de la suposicion de que se tiene un algoritmo de dijkstra ya implementado. Se utilizará un grafo de adyacencia, la cantidad de vértices del grafo (incluyendo los vértices que representan los vértices a los que se llega luego de usar k rutas premium) y la cantidad de vértices del grafo original (esto solo se usará para describir la solución) para representar el grafo. Además se entregará como parametro el vertice de origen para saber desde que vértice hay que partir en el dijkstra y el vértice de destino para saber cuál de las distancias hay que entregar como solución. Por lo tanto solo resta describir un algoritmo que adapte la entrada al formato requerido para el dijkstra.
+
+
+
+	\algoritmo{MenorCosto}{entero N, entero M, entero origen, entero destino, entero K, $entero[M] c1$, $entero[M] c2$, $entero[M] p$, $entero[M] d$}{}{\bigo($N^{2}*K^{2}$)}{
+	
+
+	\State crear matriz ``graph''  llena de 0 de tamaño $(N*(K+1))^{2}$ \comment \bigo($(N*(K+1))^{2}$)
+
+\For {i$\gets 0,1,2,...,M-2,M-1$} \comment se repite M veces	
+
+
+\If {$p[i]=0$} \comment \bigo($1$)
+\For {j$\gets c1[i],c1[i]+N,c1[i]+N*2,...c1[i]+N*s,...,c1[i]+N*K$} \comment se repite K+1 veces	
+
+\State $graph[j][c2[i]] \gets d[i]$)\comment \bigo($1$)	
+\State $graph[c2[i]][j] \gets d[i]$)\comment \bigo($1$)		
+\State $c2[i] \gets c2[i]+N$)	\comment \bigo($1$)		
+\EndFor
+\EndIf
+
+\If {$p[i] \neq 0$} \comment \bigo($1$)
+\For {j$\gets c1[i],c1[i]+N,c1[i]+N*2,...c1[i]+N*s,...,c1[i]+N*(K-1)$} \comment se repite K veces	
+
+\State $graph[j][c2[i]+N] \gets d[i]$)	\comment \bigo($1$)	
+\State $graph[c2[i]][j+N] \gets d[i]$)	\comment \bigo($1$)	
+\State $c2[i] \gets c2[i]+V$)		\comment \bigo($1$)	
+\EndFor	
+	
+\EndIf
+
+\EndFor
+
+  dijkstra(graph, N*(K+1), destino, origen,N); \comment \bigo($N^{2}*K^{2}$) ya que el grafo tiene N*(K+1) vertices y la complejidad es eso al cuadrado	
+   
+ 
+}{$2*$\bigo(N*N*K*K)$+2*M*K*$\bigo(1)$=$\bigo(N*N*K*K)}
+
+
+\subsection{Experimentación}

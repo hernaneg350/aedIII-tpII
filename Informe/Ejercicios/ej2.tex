@@ -18,7 +18,7 @@ M lineas con enteros c1 y c2 que indican cuales ciudades comunica la ruta a desc
 \\
 La salida es un único entero Solución con el máximo valor por el cual se pueden disminuir todos los peajes.
 
-\subsubsection{Ejemplos con Soluciones}
+\subsubsection{Ejemplo con Solucion}
 Ejemplo:un ejemplo en que no queda ningun elemento sin pintar\\
 Entrada:\\
 4 5\\
@@ -129,6 +129,59 @@ Para el pseudocodigo se utilizara una función que se encarga por su cuenta de h
 
  
 }{}
+
+\subsection{Experimentación}
+Experimentación\\
+ 
+Ejercicio 2:\\
+ 
+La experimentación del ejercicio 2 se llevó a cabo generando instancias de test de distintas características. En particular, se deben notar algunas particularidades acerca de los grafos generados:\\
+ 
+
+\begin{itemize}  
+\item Cada grafo generado tiene k componentes conexas
+\item Todas las componetnes conexas son componentes fuertemente conexas del grafo
+\item Para fijar la cantidad de aristas en un grafo de variables componentes (fuertemente) conexas, se estableció la cantidad mínima de aristas para el grafo de mayor cantidad de componentes. Para cualquier otro grafo de menos componentes, la cantidad mínima de aristas es menor, con lo cual las aristas que restan requeridas para llegar al “m” fijado se redistribuyen entre las componentes restantes.
+\item Para variar la densidad del grafo, la diferencia entre la máxima y mínima cantidad de aristas para una componente conexa se múltiplica por un modificador de densidad entre 0.0 y 1.0. La cantidad de aristas asignadas asignadas a la componente es esta más las mínimas necesarias para que sea fuertemente conexa.
+\item Para la generación de aristas, en cada componente conexa se genera un ciclo (v1, v2), (v2, v3)...(vN, v1). El costo de este ciclo es de 0. Si la cantidad de aristas que se debiera tener la componente es mayor, entonces se toman todas las posibles aristas que se pueden agregar, se ordenan aleatoriamente en una secuencia, y se toma la cantidad de aristas restantes, con costo max(c) deseado. Con esto nos aseguramos que la búsqueda binaria llegue hasta el final (ya que de tomar cualquier c, el ciclo (v1, v2), (v2, v3)...(vN, v1) se torna negativo).
+ 
+
+\end{itemize}
+
+Dentro de las observaciones que podemos hacer acerca del algoritmo se encuentra una relacionada a la cantidad de componentes fuertemente conexas del grafo de entrada. En un análisis de tiempo de ejecución del algoritmo, se podría concluir que el mismo es independiente de las componentes conexas que tenga el grafo. Esto significa que dados un n, m y max(c) fijo, y variando la cantidad de componentes conexas, el tiempo de ejecución se mantiene igual. Observamos a continuación la distribución del tiempo en base a las variaciones en cantidad de componentes conexas. Para estas instancias se tomaron samples de hasta 200 componentes conexas en grafos de 600 nodos y 600 aristas con max(c) = 100.\\
+
+
+\begin{figure}[!htb!]
+	\begin{center}
+		\includegraphics[width=300pt]{Imagenes/componentes_conexas.png}
+		\caption{{\small \textit{componentes conexas}}}
+	\end{center}
+\end{figure}
+
+Otra observación interesante tiene que ver con la tendencia de la complejidad algorítmica dependiendo de variaciones en la densidad del grafo. Para grafos de baja densidad la cantidad de aristas tiende a n, y para grafos de alta densidad, la cantidad de aristas se acerca a $n^{2}$. Si fijamos max(c) y variamos la densidad para observar estos cambios, podemos ver cómo varía la correlación entre estas complejidades. \\
+A continuación mostramos tres gráficos: Una comparación entre los tiempos del algoritmo para densidad 0 y densidad 1, la correlación pearson entre $n^{2}$ y los tiempos de ejecución del algoritmo para grafos de baja densidad, y la correlación pearson entre $n^{3}$ y los tiempos de ejecución del algoritmo para grafos de alta densidad. En este caso se tomaron grafos de hasta 200 nodos.
+\\
+\begin{figure}[!htb!]
+	\begin{center}
+		\includegraphics[width=200pt]{Imagenes/high_density_vs_n3.png}
+		\caption{{\small \textit{alta densidad vs $n^{3}$}}}
+	\end{center}
+\end{figure}
+
+\begin{figure}[!htb!]
+	\begin{center}
+		\includegraphics[width=200pt]{Imagenes/high_vs_low_density.png}
+		\caption{{\small \textit{alta vs baja densidad}}}
+	\end{center}
+\end{figure}
+
+\begin{figure}[!htb!]
+	\begin{center}
+		\includegraphics[width=200pt]{Imagenes/low_density_vs_n2.png}
+		\caption{{\small \textit{baja densidad vs $n^{2}$}}}
+	\end{center}
+\end{figure}
+\pagebreak
 
 
 
