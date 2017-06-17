@@ -92,6 +92,8 @@ int main()
            {
                int c1,c2,p,d;
                cin>>c1>>c2>>p>>d;
+               c1--;
+               c2--;
                if (p==0)
                {
                     for (int j=c1;j<V*(k+1);j=j+V)
