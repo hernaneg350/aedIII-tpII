@@ -21,7 +21,7 @@ class Graph:
 def print_graph(graph):
     return """{n}
 {edges}
--1""".format(n=graph.n, edges="\n".join(map(lambda edge: " ".join([str(edge.vertices[0]), str(edge.vertices[1]), str(edge.data)]), graph.edges)))
+-1""".format(n=graph.n, edges="\n".join(map(lambda edge: " ".join([str(edge.vertices[0] + 1), str(edge.vertices[1] + 1), str(edge.data)]), graph.edges)))
 
 def generate_graph(n, density):
     edge_pairs = []

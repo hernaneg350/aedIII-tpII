@@ -26,8 +26,8 @@ void run_solution(int n) {
 
         vector<string> edgeData = split(edgeString, ' ');
 
-        int c1 = stoi(trim(edgeData[0]));
-        int c2 = stoi(trim(edgeData[1]));
+        int c1 = stoi(trim(edgeData[0])) - 1;
+        int c2 = stoi(trim(edgeData[1])) - 1;
         int isPresent = (bool)stoi(trim(edgeData[2]));
         int cost = stoi(trim(edgeData[3]));
 
