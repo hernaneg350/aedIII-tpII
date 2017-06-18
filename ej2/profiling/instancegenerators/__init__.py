@@ -20,7 +20,7 @@ class Graph:
 def print_graph(graph):
     return """{n} {m}
 {edges}
--1 -1""".format(n=graph.n, m=len(graph.edges), edges="\n".join(map(lambda edge: " ".join([str(edge.vertices[0]), str(edge.vertices[1]), str(edge.data)]), graph.edges)))
+-1 -1""".format(n=graph.n, m=len(graph.edges), edges="\n".join(map(lambda edge: " ".join([str(edge.vertices[0] + 1), str(edge.vertices[1] + 1), str(edge.data)]), graph.edges)))
 
 def subgraph_edges(base_n, n, m, max_c):
     for v1 in range(base_n, base_n + n):

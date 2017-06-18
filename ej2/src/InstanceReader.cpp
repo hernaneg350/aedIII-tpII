@@ -15,8 +15,8 @@ Graph InstanceReader::ReadFromInput(int n, int m, istream& inputStream)
         getline(inputStream, edgeString);
 
         vector<string> edgeData = split(edgeString, ' ');
-        int v1 = stoi(trim(edgeData[0]));
-        int v2 = stoi(trim(edgeData[1]));
+        int v1 = stoi(trim(edgeData[0])) - 1;
+        int v2 = stoi(trim(edgeData[1])) - 1;
         int weight = stoi(trim(edgeData[2]));
 
         edges[iEdge] = Edge { v1, v2, weight };
