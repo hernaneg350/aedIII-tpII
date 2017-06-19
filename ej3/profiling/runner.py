@@ -15,10 +15,18 @@ def rows_to_columns(matrix):
     return [list(x) for x in zip(*matrix)]
 
 ### Run time complexity does not get affected by density
-write_csv('results/density.csv',
-    [['density', 'time']] +
+#write_csv('results/density.csv',
+#    [['density', 'time']] +
+#    rows_to_columns([
+#        [0.0] + [1.0 / calc for calc in range(1, 30)],
+#        profile_instances(instancegenerators.variable_density_generator(30), 100),
+#    ])
+#)
+
+write_csv('results/n_growth.csv',
+    [['n', 'time']] +
     rows_to_columns([
-        [0.0] + [1.0 / calc for calc in range(1, 30)],
-        profile_instances(instancegenerators.variable_density_generator(30), 100),
+        [n for n in range(20, 100)],
+        profile_instances(instancegenerators.grow_n_generator(20, 100), 100),
     ])
 )

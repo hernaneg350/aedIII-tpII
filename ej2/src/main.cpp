@@ -35,7 +35,7 @@ int searchSolution(Graph& instance)
 
         BellmanFord bellmanFordImpl(instance, -middle);
 
-        if (bellmanFordImpl.HasNegativeCycles())
+        if (bellmanFordImpl.HasNegativeCycles(0))
         {
             rightBoundary = middle;
         }

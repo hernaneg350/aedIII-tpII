@@ -34,11 +34,11 @@ def generate_graph(n, density):
     max_edge_count = (n * (n - 1)) / 2
     edge_count = int(max_edge_count * density)
 
-    return Graph(n, [Edge(edge_pairs[i][0], edge_pairs[i][1], Route3(i < edge_count, random.randint(1, 20))) for i in range(0, len(edge_pairs))])
+    return Graph(n, [Edge(edge_pairs[i][0], edge_pairs[i][1], Route3(i < edge_count, random.randint(1, 500))) for i in range(0, len(edge_pairs))])
 
 def variable_density_generator(calc_count):
     def g():
-        n = 300
+        n = 100
 
         density = 0.0
         instance = generate_graph(n, density)
@@ -51,11 +51,9 @@ def variable_density_generator(calc_count):
 
     return g
 
-def grow_n_generator(min_n, max_n, density):
+def grow_n_generator(min_n, max_n):
     def g():
-        for n in range(min_n, max_n + 1):
-            max_c = 100
-            connected_components = 1
-            instance = generate_graph_density(n, density, connected_components, max_c)
+        for n in range(min_n, max_n):
+            instance = generate_graph(n, 0.5)
             yield (n, print_graph(instance))
     return g
