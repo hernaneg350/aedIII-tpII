@@ -14,14 +14,14 @@ def write_csv(csv_file_name, results):
 def rows_to_columns(matrix):
     return [list(x) for x in zip(*matrix)]
 
-### Run time complexity does not get affected by strongly connected components
-#write_csv('results/connected_components.csv',
-#    [['connected_component_count', 'time']] +
-#    rows_to_columns([
-#        [n for n in range(2, 200)],
-#        profile_instances(instancegenerators.variable_components_generator(200), 100),
-#    ])
-#)
+## Run time complexity does not get affected by strongly connected components
+write_csv('results/connected_components.csv',
+    [['connected_component_count', 'time']] +
+    rows_to_columns([
+        [n for n in range(2, 200)],
+        profile_instances(instancegenerators.variable_components_generator(200), 100),
+    ])
+)
 
 ### Run time complexity in low vs high density grpahs
 write_csv('results/high_vs_low_density.csv',
@@ -44,7 +44,7 @@ write_csv('results/low_density_vs_n_2.csv',
 )
 
 ### Run time complexity approches n**3 for high density graphs
-write_csv('results/low_density_vs_n_3.csv',
+write_csv('results/high_density_vs_n_3.csv',
     [['n', 'n^3', 'time']] +
     rows_to_columns([
         [n for n in range(2, 201)],
